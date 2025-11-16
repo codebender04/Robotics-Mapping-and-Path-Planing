@@ -104,12 +104,13 @@ class AStarPlanner:
         
         print("❌ No path found!")
         return None
-        
+    
     def heuristic(self, a, b):
-        dx = a[0] - b[0]
-        dy = a[1] - b[1]
-        return 10 * np.sqrt(dx*dx + dy*dy)
-
+        """Euclidean distance heuristic scaled to match movement costs"""
+        dx = abs(a[0] - b[0])
+        dy = abs(a[1] - b[1])
+        # Use Chebyshev distance or scaled Euclidean for 8-connected grids
+        return 10 * max(dx, dy)  # Better for 8-connected movement
 
     def distance(self, a, b):
         """Normalized movement costs: straight=10, diagonal=14"""
